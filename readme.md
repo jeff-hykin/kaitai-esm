@@ -7,10 +7,8 @@ Once [this PR from 2023](https://github.com/kaitai-io/kaitai_struct_compiler/pul
 ### Example Usage
 
 ```js
-import kaitaiCompiler from "https://esm.sh/gh/jeff-hykin/kaitai-esm@master/compiler.js"
-import kaitaiCompiler from "./compiler.js"
 import Yaml from 'https://esm.sh/yaml@2.4.3'
-import { createLoader } from './main.js'
+import { createLoader } from "https://esm.sh/gh/jeff-hykin/kaitai-esm@master/main.js"
 
 var ksyFileAsObject = Yaml.parse(`
 meta:
@@ -70,14 +68,28 @@ parsedGif.header.version
 parsedGif.logicalScreen.imageWidth // 1
 parsedGif.logicalScreen.imageHeight // 1
 
-// using the generated JS file
-import { KaitaiStream } from "./kaitaiCore.js"
+// 
+// manually compiling the KSY file to JS
+// 
+import kaitaiCompiler from "https://esm.sh/gh/jeff-hykin/kaitai-esm@master/compiler.js"
 var filenameToContents = await kaitaiCompiler.compile("javascript", ksyFileAsObject, importer, debug)
-console.debug(`filenameToContents is:`,filenameToContents)
-// var helperSetup = (await import(`data:text/javascript;base64,${btoa(Object.values(filenameToContents)[0])}`)).default
-// var helper = helperSetup(KaitaiStream)
-```
+console.debug(`contents are:`,filenameToContents["Gif.js"])
 
+
+// 
+// using the generated JS file
+// 
+import { KaitaiStream } from "./kaitaiCore.js"
+// NORMALLY: import gifSetup from "./Gif.js"
+const setupGif = await import(`data:text/javascript;base64,${btoa(filenameToContents["Gif.js"])}`).then(i=>i.default)
+const Gif = setupGif(KaitaiStream)
+var parsedGif = Gif(exampleGifBytes)
+// use the data:
+parsedGif.header.magic
+parsedGif.header.version
+parsedGif.logicalScreen.imageWidth // 1
+parsedGif.logicalScreen.imageHeight // 1
+```
 
 ### Other
 
