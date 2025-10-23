@@ -9,12 +9,12 @@
     <body>
     </body>
     <script type="module">
-        // import Yaml from 'https://esm.sh/yaml@2.4.3?target=es2022'
+        import Yaml from 'https://esm.sh/yaml@2.4.3?target=es2022'
         // import * as Yaml from "https://deno.land/std@0.168.0/encoding/yaml.ts"
-        import * as Yaml from 'https://esm.sh/gh/jeff-hykin/kaitai-esm@master/yaml.js'
-        import { createEditor } from 'https://cdn.jsdelivr.net/gh/jeff-hykin/codemirror_esm@878b25cb3fa3d74b13208447f67aa840a1db3c55/helpers.js'
-        import { cpp } from 'https://cdn.jsdelivr.net/gh/jeff-hykin/codemirror_esm@878b25cb3fa3d74b13208447f67aa840a1db3c55/@codemirror/lang-cpp.js'
-        import { yaml } from 'https://cdn.jsdelivr.net/gh/jeff-hykin/codemirror_esm@878b25cb3fa3d74b13208447f67aa840a1db3c55/@codemirror/lang-yaml.js'
+        // import * as Yaml from 'https://esm.sh/gh/jeff-hykin/kaitai-esm@5541b33/yaml.js'
+        import { createEditor } from 'https://cdn.jsdelivr.net/gh/jeff-hykin/codemirror_esm@5244ce0d764ae905bb8c784415a5a2f205731008/helpers.js'
+        import { cpp } from 'https://cdn.jsdelivr.net/gh/jeff-hykin/codemirror_esm@5244ce0d764ae905bb8c784415a5a2f205731008/@codemirror/lang-cpp.js'
+        import { yaml } from 'https://cdn.jsdelivr.net/gh/jeff-hykin/codemirror_esm@5244ce0d764ae905bb8c784415a5a2f205731008/@codemirror/lang-yaml.js'
         import { throttle } from 'https://esm.sh/gh/jeff-hykin/good-js@1.18.2.0/source/flattened/throttle.js'
         
         import { ksyToC } from 'https://esm.sh/gh/jeff-hykin/kaitai-esm@master/helpers/ksyToC.js'
@@ -70,7 +70,8 @@
             `.replace(/\n                /g, "\n").slice(1),
             onInput: throttle(500, ({element, editor}, update)=>{
                 try {
-                    const { code: cCode, warnings } = ksyToC(Yaml.parse(element.value))
+                    const c = element.value
+                    const { code: cCode, warnings } = ksyToC(Yaml.parse(c))
                     cppEditor.value = cCode
                     warningsDiv.innerHTML = warnings.map(each=>`<span>${each}</span>`.replace(/\n/g,"<br>")).join("<br>")
                 } catch (error) {

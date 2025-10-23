@@ -256,7 +256,7 @@ export function ksyToC(ksyFileAsObject) {
                     contentToBytes(contents)
                     type = "u1"
                     size = 1
-                    value = contents + `/* ${number.toString(16).padStart(2, "0")}, ${number.toString(2).padStart(8, "0")} */`
+                    value = contents + `/* 0x${number.toString(16).padStart(2, "0")}, 0b${number.toString(2).padStart(8, "0")} */`
                 } else if (typeof contents === "string") {
                     type = "str"
                     size = contents.length
@@ -275,7 +275,7 @@ export function ksyToC(ksyFileAsObject) {
                     if (bytes.length == 1) {
                         type = "u1"
                         size = 1
-                        value = bytes[0] + `/* ${bytes[0].toString(16).padStart(2, "0")}, ${bytes[0].toString(2).padStart(8, "0")} */`
+                        value = bytes[0] + `/* 0x${bytes[0].toString(16).padStart(2, "0")}, 0b${bytes[0].toString(2).padStart(8, "0")} */`
                     } else if (validAsUtf8 && hasNoNulls) {
                         type = "str"
                         size = bytes.length
@@ -284,7 +284,7 @@ export function ksyToC(ksyFileAsObject) {
                     } else {
                         type = "u1"
                         size = bytes.length
-                        value = `{${bytes}} /* {${bytes.map(each=>each.toString(16)).join(", ")}}, {${bytes.map(each=>each.toString(2)).join(", ")}} */`
+                        value = `{${bytes}} /* {${bytes.map(each=>"0x"+each.toString(16)).join(", ")}}, {${bytes.map(each=>"0b"+each.toString(2)).join(", ")}} */`
                     }
                 }
             }
