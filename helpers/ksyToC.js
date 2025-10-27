@@ -419,6 +419,6 @@ export function ksyToC(ksyFileAsObject) {
 
     return {
         warnings,
-        code: documentationChunks.join("\n") + "\n\n" + chunks.join("\n"),
+        code: [...new Set(documentationChunks)].join("\n") + "\n\n" + chunks.join("\n"),
     }
 }
