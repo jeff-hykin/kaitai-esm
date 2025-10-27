@@ -349,7 +349,7 @@ export function ksyToC(ksyFileAsObject) {
         if (each === "_Float8") {
             documentationChunks.push(`
                 /* just ensuring _Float8 is defined */
-                #nifdef _Float8
+                #ifndef _Float8
                     #warning _Float8 is not defined, falling back on uint8_t
                     #warning .
                     #warning WHICH MEANS YOUR _Float8 TYPES WILL BEHAVE LIKE INTEGERS
@@ -359,7 +359,7 @@ export function ksyToC(ksyFileAsObject) {
         } else if (each === "_Float16") {
             documentationChunks.push(`
                 /* just ensuring _Float16 is defined */
-                #nifdef _Float16
+                #ifndef _Float16
                     #include <float.h>
                     #if FLT_MANT_DIG == 11
                         /* float is 16-bit natively */
@@ -376,7 +376,7 @@ export function ksyToC(ksyFileAsObject) {
         } else if (each === "_Float32") {
             documentationChunks.push(`
                 /* just ensuring _Float32 is defined */
-                #nifdef _Float32
+                #ifndef _Float32
                     #include <float.h>
                     #if FLT_MANT_DIG == 24
                         /* float is 32-bit */
@@ -394,7 +394,7 @@ export function ksyToC(ksyFileAsObject) {
         } else if (each === "_Float64") {
             documentationChunks.push(`
                 /* just ensuring _Float64 is defined */
-                #nifdef _Float64
+                #ifndef _Float64
                     #include <float.h>
                     #if DBL_MANT_DIG == 53
                         /* double is 64-bit */
