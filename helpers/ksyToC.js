@@ -386,7 +386,7 @@ export function ksyToC(ksyFileAsObject) {
                         #warning .
                         #warning WHICH MEANS YOUR _Float32 TYPES WILL BEHAVE LIKE INTEGERS
                         #warning .
-                        #define _Float32 uint16_t
+                        #define _Float32 uint32_t
                         printf("float is 64-bit\n");
                     #endif
                 #endif
@@ -410,7 +410,7 @@ export function ksyToC(ksyFileAsObject) {
                         #warning .
                         #warning WHICH MEANS YOUR _Float64 TYPES WILL BEHAVE LIKE INTEGERS
                         #warning .
-                        #define _Float64 uint16_t
+                        #define _Float64 uint64_t
                     #endif
                 #endif
             `.replace(/\n                /g, "\n"))
