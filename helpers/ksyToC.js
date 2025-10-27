@@ -169,7 +169,7 @@ export function ksyToC(ksyFileAsObject) {
                 chunks.push(`    ${itemNameOrDetails} = ${enumValue},`)
             }
         }
-        chunks.push(`}`)
+        chunks.push(`};`)
     }
 
     // 
@@ -328,7 +328,7 @@ export function ksyToC(ksyFileAsObject) {
             }
         }
         sizeOf[baseTypeName] = typeSizeInBytes
-        newChunks.push(`}`)
+        newChunks.push(`};`)
         chunks.push(...newChunks)
     }
     
